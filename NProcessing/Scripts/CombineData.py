@@ -198,15 +198,11 @@ class IndividualRandomPoint:
         with open(temp_txt_path, 'w') as a_file:
             a_file.write(convert_date(date=self.mainDF.index[0]))
             a_file.write("\n")
-        new_df.to_csv(temp_txt_path, mode='a', index=False,header=False)
+        new_df.to_csv(temp_txt_path, mode='a', index=False, header=False)
 
 
-def main():
-    input_data_path = r"D:\Nitish\2102_Feb\10_WeatherPoints\NProcessing\InputData\38166_2021-02-13-08-18-25\38166_2021-02-13-08-18-25"
-    output_location = r"D:\Nitish\2102_Feb\10_WeatherPoints\NProcessing\OutputData\Test1"
-
-    random_points = RandomPoints(
-        r"D:\Nitish\2102_Feb\10_WeatherPoints\NProcessing\InputData\RandomPoints.csv")
+def run(input_data_path, output_location, random_point_path):
+    random_points = RandomPoints(random_point_path)
     random_points.set_lat_long_header(lat='Lat', long='Long')
     random_points.read_dataframe()
     random_points.create_individual_random_point()
@@ -304,6 +300,20 @@ class MainApplication(tk.Frame):
 #     root.geometry("600x300")
 #     app = MainApplication(root)
 #     root.mainloop()
+
+
+def main():
+
+    project_path = r"D:\Nitish\2102_Feb\10_WeatherPoints\Data"
+    state_list = ['Bihar', 'Chattisgarh', 'Gujarat', 'Jharkhand', 'MadhyaPradesh', 'Rajasthan']
+
+    for state in state_list:
+        print("Processing: {}".format(state))
+        input_data_path = os.path.join(project_path, "Input", state)
+        output_location = os.path.join(project_path, "Output", state)
+        random_point_path = os.path.join(project_path, "RandomPointCSV", state + ".csv")
+        run(input_data_path, output_location, random_point_path)
+
 
 # global known_points, weather_data_files, output_location
 if __name__ == '__main__':

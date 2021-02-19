@@ -1,8 +1,6 @@
-import pandas as pd
+path = r"D:\Nitish\2102_Feb\10_WeatherPoints\Data\Input"
+import os
+n = os.listdir(path)
 
-data = [['tom', 10, 5], ['nick', 15, 6], ['juli', 14, 6]]
-
-# Create the pandas DataFrame
-df = pd.DataFrame(data, columns=['Name', 'Age', 'n'])
-df = df[['Name', 'n']]
-print(df.to_csv(index=False, header=False))
+a = [f for f in n if not f.endswith(".zip")]
+print(a)
